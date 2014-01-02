@@ -45,3 +45,7 @@ TagManager:
     userID: 1
     uniqueID: 3374009185
     locked: 0
+  - name: Obstacles
+    userID: 2
+    uniqueID: 2739673245
+    locked: 0
