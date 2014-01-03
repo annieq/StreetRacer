@@ -43,5 +43,13 @@ public class MoveCar : MonoBehaviour {
 			}
 		}
 
+        // skakanie
+        if (Input.GetAxis("Vertical") > 0.0)
+        {
+            Vector2 pos = transform.position;
+            pos.y += step;
+            transform.position = pos;
+        }
+
 	}
 }

@@ -560,10 +560,10 @@ Rigidbody2D:
     type: 2}
   m_PrefabInternal: {fileID: 1905207587}
   m_GameObject: {fileID: 1319673727}
-  m_Mass: 1
+  m_Mass: 1000
   m_LinearDrag: 0
   m_AngularDrag: .0500000007
-  m_GravityScale: 1
+  m_GravityScale: 4
   m_FixedAngle: 0
   m_IsKinematic: 0
   m_Interpolate: 0
@@ -787,6 +787,14 @@ Prefab:
       propertyPath: bg.Array.data[2]
       value: 
       objectReference: {fileID: 418845896}
+    - target: {fileID: 5000000, guid: 56b492f344be4014a829ac8a302dbbb1, type: 2}
+      propertyPath: m_GravityScale
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 5000000, guid: 56b492f344be4014a829ac8a302dbbb1, type: 2}
+      propertyPath: m_Mass
+      value: 1000
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 56b492f344be4014a829ac8a302dbbb1, type: 2}
   m_RootGameObject: {fileID: 1319673727}
