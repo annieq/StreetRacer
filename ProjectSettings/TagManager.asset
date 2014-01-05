@@ -3,6 +3,9 @@
 --- !u!78 &1
 TagManager:
   tags:
+  - Heart
+  - Car
+  - Letter
   - 
   Builtin Layer 0: Default
   Builtin Layer 1: TransparentFX
@@ -37,6 +40,10 @@ TagManager:
   User Layer 30: 
   User Layer 31: 
   m_SortingLayers:
+  - name: Background
+    userID: 3
+    uniqueID: 815454973
+    locked: 0
   - name: Default
     userID: 0
     uniqueID: 0
@@ -48,4 +55,8 @@ TagManager:
   - name: Obstacles
     userID: 2
     uniqueID: 2739673245
+    locked: 0
+  - name: GUI
+    userID: 4
+    uniqueID: 1695286919
     locked: 0
