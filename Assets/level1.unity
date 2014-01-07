@@ -208,6 +208,14 @@ Prefab:
       propertyPath: m_Name
       value: bground3
       objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: c011b10680149274f8285ca198200a84, type: 2}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 1319673727}
+    - target: {fileID: 11400000, guid: c011b10680149274f8285ca198200a84, type: 2}
+      propertyPath: orderNumber
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: c011b10680149274f8285ca198200a84, type: 2}
   m_RootGameObject: {fileID: 418845896}
@@ -223,6 +231,7 @@ GameObject:
   - 4: {fileID: 418845899}
   - 212: {fileID: 418845898}
   - 61: {fileID: 418845897}
+  - 114: {fileID: 418845900}
   m_Layer: 0
   m_Name: bground3
   m_TagString: Untagged
@@ -275,6 +284,58 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 70.1818542, y: 2.4000001, z: 0}
   m_LocalScale: {x: 5.06289625, y: 5.06285143, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+--- !u!114 &418845900
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 11400000, guid: c011b10680149274f8285ca198200a84,
+    type: 2}
+  m_PrefabInternal: {fileID: 328726013}
+  m_GameObject: {fileID: 418845896}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fb410e551bdaa546a8b9b176a1fd515, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  numberOfBgrounds: 3
+  player: {fileID: 1319673727}
+--- !u!1 &580482801
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 580482803}
+  - 61: {fileID: 580482802}
+  m_Layer: 0
+  m_Name: leftLimiter
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!61 &580482802
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 580482801}
+  m_Enabled: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Size: {x: 1, y: 21.6900005}
+  m_Center: {x: 0, y: 0}
+--- !u!4 &580482803
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 580482801}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -6.65999985, y: 2.18000007, z: -.0388183594}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
 --- !u!1 &611883937
@@ -621,6 +682,7 @@ GameObject:
   - 4: {fileID: 1117329512}
   - 212: {fileID: 1117329511}
   - 61: {fileID: 1117329510}
+  - 114: {fileID: 1117329513}
   m_Layer: 0
   m_Name: bground1
   m_TagString: Untagged
@@ -675,6 +737,20 @@ Transform:
   m_LocalScale: {x: 5.06289625, y: 5.06285143, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
+--- !u!114 &1117329513
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 11400000, guid: c011b10680149274f8285ca198200a84,
+    type: 2}
+  m_PrefabInternal: {fileID: 1699582851}
+  m_GameObject: {fileID: 1117329509}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fb410e551bdaa546a8b9b176a1fd515, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  numberOfBgrounds: 3
+  player: {fileID: 1319673727}
 --- !u!1 &1181114529
 GameObject:
   m_ObjectHideFlags: 0
@@ -834,6 +910,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   step: .5
+  jumpStep: .5
 --- !u!1 &1319673727
 GameObject:
   m_ObjectHideFlags: 0
@@ -946,7 +1023,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1330242977
 Transform:
   m_ObjectHideFlags: 0
@@ -1032,6 +1109,7 @@ GameObject:
   - 4: {fileID: 1696392789}
   - 212: {fileID: 1696392788}
   - 61: {fileID: 1696392787}
+  - 114: {fileID: 1696392790}
   m_Layer: 0
   m_Name: bground2
   m_TagString: Untagged
@@ -1086,6 +1164,20 @@ Transform:
   m_LocalScale: {x: 5.06289625, y: 5.06285143, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
+--- !u!114 &1696392790
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 11400000, guid: c011b10680149274f8285ca198200a84,
+    type: 2}
+  m_PrefabInternal: {fileID: 2078984973}
+  m_GameObject: {fileID: 1696392786}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fb410e551bdaa546a8b9b176a1fd515, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  numberOfBgrounds: 3
+  player: {fileID: 1319673727}
 --- !u!1001 &1699582851
 Prefab:
   m_ObjectHideFlags: 0
@@ -1124,6 +1216,14 @@ Prefab:
     - target: {fileID: 100000, guid: c011b10680149274f8285ca198200a84, type: 2}
       propertyPath: m_Name
       value: bground1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: c011b10680149274f8285ca198200a84, type: 2}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 1319673727}
+    - target: {fileID: 11400000, guid: c011b10680149274f8285ca198200a84, type: 2}
+      propertyPath: orderNumber
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: c011b10680149274f8285ca198200a84, type: 2}
@@ -1249,6 +1349,18 @@ Prefab:
       propertyPath: m_TagString
       value: Car
       objectReference: {fileID: 0}
+    - target: {fileID: 100004, guid: 56b492f344be4014a829ac8a302dbbb1, type: 2}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 56b492f344be4014a829ac8a302dbbb1, type: 2}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 400004, guid: 56b492f344be4014a829ac8a302dbbb1, type: 2}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 11400000, guid: 56b492f344be4014a829ac8a302dbbb1, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: 56b492f344be4014a829ac8a302dbbb1, type: 2}
@@ -1344,6 +1456,14 @@ Prefab:
     - target: {fileID: 100000, guid: c011b10680149274f8285ca198200a84, type: 2}
       propertyPath: m_Name
       value: bground2
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: c011b10680149274f8285ca198200a84, type: 2}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 1319673727}
+    - target: {fileID: 11400000, guid: c011b10680149274f8285ca198200a84, type: 2}
+      propertyPath: orderNumber
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: c011b10680149274f8285ca198200a84, type: 2}

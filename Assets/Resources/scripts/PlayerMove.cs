@@ -9,11 +9,28 @@ using System.Collections;
 public class PlayerMove : MonoBehaviour {
 
     public float step = 0.5f;
-	//public List<GameObject> bg;
+    public float jumpStep = 0.5f;
+
+    private static bool isJumping = false;
+
+    private static float camRelPos;
+    private static float[] heartRelPos;
+    private static float[] letterRelPos;
 
 	// Use this for initialization
 	void Start () {
-	
+        camRelPos = Camera.main.transform.position.x
+                    - GameObject.FindGameObjectWithTag("Car").transform.position.x;
+        heartRelPos = new float[GameObject.FindGameObjectsWithTag("Heart").Length];
+        letterRelPos = new float[GameObject.FindGameObjectsWithTag("Letter").Length];
+
+        for (int i = 0; i < heartRelPos.Length; ++i)
+            heartRelPos[i] = GameObject.FindGameObjectsWithTag("Heart")[i].transform.position.x 
+                                - GameObject.FindGameObjectWithTag("Car").transform.position.x;
+        
+        for (int i = 0; i < letterRelPos.Length; ++i)
+            letterRelPos[i] = GameObject.FindGameObjectsWithTag("Letter")[i].transform.position.x
+                                - GameObject.FindGameObjectWithTag("Car").transform.position.x;
 	}
 	
 	// Update is called once per frame
@@ -22,19 +39,6 @@ public class PlayerMove : MonoBehaviour {
         GameObject car = GameObject.FindGameObjectWithTag("Car");
 
 		if (axis != 0.0) {
-
-            //// przesuwanie tła
-            //Vector2 pos;
-            //foreach( GameObject bground in bg)
-            //{
-            //    pos = bground.transform.position;
-            //    pos.x -= step * axis;
-
-            //    if (pos.x < -37.0)
-            //        pos.x += 37.0f + (bg.Count - 1) * 29.65f;
-
-            //    bground.transform.position = pos;
-            //}
             
             // ruch autka
             Vector2 pos = car.transform.position;
@@ -52,36 +56,43 @@ public class PlayerMove : MonoBehaviour {
             // GUI
             // serca
             GameObject[] hearts = GameObject.FindGameObjectsWithTag("Heart");
-            if (hearts.Length > 0)
-                foreach (GameObject h in hearts)
-                {
-                    pos = h.transform.position;
-                    pos.x += step * axis;
-                    h.transform.position = pos;
-                }
+            for (int i = 0; i < hearts.Length; ++i)
+            {
+                pos = hearts[i].transform.position;
+                pos.x = car.transform.position.x + heartRelPos[i];
+                hearts[i].transform.position = pos;
+            }
             // literki
             GameObject[] letters = GameObject.FindGameObjectsWithTag("Letter");
-            if (letters.Length > 0)
-                foreach (GameObject l in letters)
-                {
-                    pos = l.transform.position;
-                    pos.x += step * axis;
-                    l.transform.position = pos;
-                }            
+            for (int i = 0; i < letters.Length; ++i)
+            {
+                pos = letters[i].transform.position;
+                pos.x = car.transform.position.x + letterRelPos[i];
+                letters[i].transform.position = pos;
+            }            
 
             // ruch kamery
             Vector3 camPos = Camera.main.transform.position;
-            camPos.x += step * axis;
+            //camPos.x += step * axis;
+            camPos.x = car.transform.position.x + camRelPos;
             Camera.main.transform.position = camPos;
 		}
 
         // skakanie
-        if (Input.GetAxis("Vertical") > 0.0)
+        if (Input.GetKeyDown(KeyCode.UpArrow))
+        {
+            isJumping = true;
+        }
+        if (Input.GetKeyUp(KeyCode.UpArrow))
+            isJumping = false;
+
+        if (isJumping)
         {
             Vector2 pos = car.transform.position;
-            pos.y += step;
+            pos.y += jumpStep;
             car.transform.position = pos;
+            if (pos.y > 5.0)
+                isJumping = false;
         }
-
 	}
 }
