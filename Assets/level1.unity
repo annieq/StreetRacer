@@ -349,7 +349,7 @@ GameObject:
   - 212: {fileID: 611883938}
   m_Layer: 0
   m_Name: obs2
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -385,7 +385,7 @@ Transform:
   m_PrefabInternal: {fileID: 1371768759}
   m_GameObject: {fileID: 611883937}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 100.308121, y: -5.28415346, z: 0}
+  m_LocalPosition: {x: 100.308121, y: -4.78415298, z: 0}
   m_LocalScale: {x: .5, y: .5, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -512,7 +512,7 @@ GameObject:
   - 212: {fileID: 1070847800}
   m_Layer: 0
   m_Name: obs1
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -889,7 +889,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1264156010}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 11.5474749, y: 1.17038441, z: -.0122070312}
+  m_LocalPosition: {x: 11.5474749, y: .265545845, z: -.0122070312}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1319673728}
@@ -911,6 +911,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   step: .5
   jumpStep: .5
+  life: 3
 --- !u!1 &1319673727
 GameObject:
   m_ObjectHideFlags: 0
@@ -1072,7 +1073,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 3a63a0a8dcad3584c8f1f559857d81bd, type: 2}
       propertyPath: m_LocalPosition.y
-      value: -5.28415346
+      value: -4.78415298
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 3a63a0a8dcad3584c8f1f559857d81bd, type: 2}
       propertyPath: m_LocalPosition.z
@@ -1093,6 +1094,14 @@ Prefab:
     - target: {fileID: 400000, guid: 3a63a0a8dcad3584c8f1f559857d81bd, type: 2}
       propertyPath: m_LocalRotation.w
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 3a63a0a8dcad3584c8f1f559857d81bd, type: 2}
+      propertyPath: m_LocalScale.y
+      value: .5
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 3a63a0a8dcad3584c8f1f559857d81bd, type: 2}
+      propertyPath: m_LocalScale.x
+      value: .5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 3a63a0a8dcad3584c8f1f559857d81bd, type: 2}

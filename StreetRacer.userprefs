@@ -1,10 +1,9 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
   <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Resources\scripts\PlayerMove.cs">
     <Files>
-      <File FileName="Assets\Resources\scripts\WrapBackground.cs" Line="22" Column="4" />
-      <File FileName="StreetRacer.sln" Line="1" Column="1" />
-      <File FileName="Assets\Resources\scripts\PlayerMove.cs" Line="100" Column="1" />
+      <File FileName="Assets\Resources\scripts\PlayerMove.cs" Line="1" Column="1" />
+      <File FileName="Assets\Resources\scripts\PlayerMove.cs" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
