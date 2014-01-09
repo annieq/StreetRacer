@@ -10,7 +10,8 @@ public class PlayerMove : MonoBehaviour {
 
     public float step = 0.5f;
     public float jumpStep = 0.5f;
-	public int life = 3;
+	public int life;
+    public bool[] lettersFound;
 
     private static bool isJumping = false;
 
@@ -24,18 +25,31 @@ public class PlayerMove : MonoBehaviour {
                     - GameObject.FindGameObjectWithTag("Car").transform.position.x;
         heartRelPos = new float[GameObject.FindGameObjectsWithTag("Heart").Length];
         letterRelPos = new float[GameObject.FindGameObjectsWithTag("Letter").Length];
+        lettersFound = new bool[letterRelPos.Length];
+
+        life = heartRelPos.Length;  // ilość życia
 
         for (int i = 0; i < heartRelPos.Length; ++i)
             heartRelPos[i] = GameObject.FindGameObjectsWithTag("Heart")[i].transform.position.x 
                                 - GameObject.FindGameObjectWithTag("Car").transform.position.x;
-        
-        for (int i = 0; i < letterRelPos.Length; ++i)
-            letterRelPos[i] = GameObject.FindGameObjectsWithTag("Letter")[i].transform.position.x
+
+        GameObject[] letters = new GameObject[5];
+        letters[0] = GameObject.Find("m");
+        letters[1] = GameObject.Find("a");
+        letters[2] = GameObject.Find("r");
+        letters[3] = GameObject.Find("i");
+        letters[4] = GameObject.Find("o");
+        for (int i = 0; i < letterRelPos.Length; ++i) {
+            letterRelPos[i] = letters[i].transform.position.x
                                 - GameObject.FindGameObjectWithTag("Car").transform.position.x;
+
+            lettersFound[i] = false;
+        }
 	}
-	
-	// Update is called once per frame
-	void Update () {
+
+    // Update is called once per frame
+    void Update()
+    {
         float axis = Input.GetAxis("Horizontal");
         GameObject car = GameObject.FindGameObjectWithTag("Car");
 
@@ -54,6 +68,72 @@ public class PlayerMove : MonoBehaviour {
                 scale.x = 1.0f;
             car.transform.localScale = scale;*/
 
+            /* Kolizje z przeszkodami, życie i literki
+             * autor: Tomasz Szołysek
+             */
+            // zmienne potrzebne przy kolizjach
+            float pos_c_x1 = car.transform.position.x + car.GetComponent<BoxCollider2D>().size.x / 2.0f; // przednia krawędź auta
+            float pos_c_x2 = car.transform.position.x - car.GetComponent<BoxCollider2D>().size.x / 2.0f; // tylnia krawędź auta
+            float pos_c_y1 = car.transform.position.y + car.GetComponent<BoxCollider2D>().size.y / 2.0f;    // górna krawędź auta
+            float pos_c_y2 = car.transform.position.y - car.GetComponent<BoxCollider2D>().size.y / 2.0f;    // dolna krawędź auta
+
+            Vector2 size;
+
+            // zbieranie literek
+            GameObject[] letters_block = new GameObject[5];
+            letters_block[0] = GameObject.Find("m-b");
+            letters_block[1] = GameObject.Find("a-b");
+            letters_block[2] = GameObject.Find("r-b");
+            letters_block[3] = GameObject.Find("i-b");
+            letters_block[4] = GameObject.Find("o-b");
+            for (int i = 0; i < letters_block.Length; ++i)
+            {
+                if (lettersFound[i]) continue;
+                pos = letters_block[i].transform.position;
+                if (pos.x <= pos_c_x1 && pos.x >= pos_c_x2 && pos.y <= pos_c_y1 && pos.y >= pos_c_y2)
+                {
+                    lettersFound[i] = true;
+                    letterRelPos[i] -= 50;
+                }
+            }
+
+            GameObject[] hearts_block = GameObject.FindGameObjectsWithTag("Heart-b");
+            for (int i = 0; i < hearts_block.Length; ++i)
+            {
+                pos = hearts_block[i].transform.position;
+                if (pos.x <= pos_c_x1 && pos.x >= pos_c_x2 && pos.y <= pos_c_y1 && pos.y >= pos_c_y2)
+                {
+                    if (life < 3) {
+						++life;
+	                    heartRelPos[life-1] += 100;
+					}
+                    Destroy(hearts_block[i]);
+                }
+            }
+
+            // sprawdzenie kolizji z przeszkodami
+            GameObject[] obstacles = GameObject.FindGameObjectsWithTag("Obstacle");
+            for (int i = 0; i < obstacles.Length; ++i)
+            {
+                pos = obstacles[i].transform.position;
+                size = obstacles[i].GetComponent<SpriteRenderer>().sprite.bounds.size;
+                size.x *= obstacles[i].transform.localScale.x / 2.0f;
+                size.y *= obstacles[i].transform.localScale.y / 2.0f;
+                if (((pos.x - size.x <= pos_c_x1 && pos.x + size.x >= pos_c_x1) || (pos.x - size.x <= pos_c_x2 && pos.x + size.x >= pos_c_x2))
+                    && ((pos.y - size.y <= pos_c_y1 && pos.y + size.y >= pos_c_y1) || (pos.y - size.y <= pos_c_y2 && pos.y + size.y >= pos_c_y2)))
+                {
+                    --life;
+                    pos.x += Random.Range(100, 150);
+                    obstacles[i].transform.position = pos;
+                    heartRelPos[life] -= 100;
+                }
+                else if (pos.x < pos_c_x1 - 50)
+                {
+                    pos.x += Random.Range(150, 200);
+                    obstacles[i].transform.position = pos;
+                }
+            }  
+
             // GUI
             // serca
             GameObject[] hearts = GameObject.FindGameObjectsWithTag("Heart");
@@ -64,7 +144,13 @@ public class PlayerMove : MonoBehaviour {
                 hearts[i].transform.position = pos;
             }
             // literki
-            GameObject[] letters = GameObject.FindGameObjectsWithTag("Letter");
+
+            GameObject[] letters = new GameObject[5];
+            letters[0] = GameObject.Find("m");
+            letters[1] = GameObject.Find("a");
+            letters[2] = GameObject.Find("r");
+            letters[3] = GameObject.Find("i");
+            letters[4] = GameObject.Find("o");
             for (int i = 0; i < letters.Length; ++i)
             {
                 pos = letters[i].transform.position;
@@ -72,30 +158,6 @@ public class PlayerMove : MonoBehaviour {
                 letters[i].transform.position = pos;
             }            
 
-			// sprawdzenie kolizji z przeszkodami
-			float pos_c_x = car.transform.position.x + car.GetComponent<BoxCollider2D>().size.x/2.0f;
-			float pos_c_y2 = car.transform.position.y - car.GetComponent<BoxCollider2D>().size.y/2.0f;
-			Vector2 size;
-			GameObject[] obstacles = GameObject.FindGameObjectsWithTag("Obstacle");
-			for (int i = 0; i < obstacles.Length; ++i)
-			{
-                pos = obstacles[i].transform.position;
-                size = obstacles[i].GetComponent<SpriteRenderer>().sprite.bounds.size;
-				size.x *= obstacles[i].transform.localScale.x / 2.0f;
-                size.y *= obstacles[i].transform.localScale.y / 2.0f;
-                if (pos.x - size.x <= pos_c_x && pos.x + size.x >= pos_c_x && pos.y + size.y >= pos_c_y2)
-				{
-					--life;
-					pos.x += Random.Range(100,150);
-					obstacles[i].transform.position = pos;
-                    heartRelPos[life] -= 100;
-				}
-                else if (pos.x < pos_c_x - 50)
-                {
-                    pos.x += Random.Range(150, 200);
-                    obstacles[i].transform.position = pos;
-                }
-			}  
 
 
 
