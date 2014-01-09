@@ -8,6 +8,9 @@ TagManager:
   - Letter
   - Obstacle
   - 
+  - Letter-block
+  - Heart-b
+  - 
   Builtin Layer 0: Default
   Builtin Layer 1: TransparentFX
   Builtin Layer 2: Ignore Raycast
@@ -60,4 +63,8 @@ TagManager:
   - name: GUI
     userID: 4
     uniqueID: 1695286919
+    locked: 0
+  - name: SuperGUI
+    userID: 5
+    uniqueID: 1695738297
     locked: 0

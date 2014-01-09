@@ -13,16 +13,18 @@ public class PlayerMove : MonoBehaviour {
 	public int life;
     public bool[] lettersFound;
 
-    private static bool isJumping = false;
-
-    private static float camRelPos;
+	private static bool isJumping = false;
+	private static bool isPlaying = true;
+	
+	private static float camRelPos;
     private static float[] heartRelPos;
-    private static float[] letterRelPos;
+	private static float[] letterRelPos;
+	private static float gameOverRelPos;
 
 	// Use this for initialization
 	void Start () {
-        camRelPos = Camera.main.transform.position.x
-                    - GameObject.FindGameObjectWithTag("Car").transform.position.x;
+		float carPosX = GameObject.FindGameObjectWithTag("Car").transform.position.x;
+		camRelPos = Camera.main.transform.position.x - carPosX;
         heartRelPos = new float[GameObject.FindGameObjectsWithTag("Heart").Length];
         letterRelPos = new float[GameObject.FindGameObjectsWithTag("Letter").Length];
         lettersFound = new bool[letterRelPos.Length];
@@ -30,8 +32,7 @@ public class PlayerMove : MonoBehaviour {
         life = heartRelPos.Length;  // ilość życia
 
         for (int i = 0; i < heartRelPos.Length; ++i)
-            heartRelPos[i] = GameObject.FindGameObjectsWithTag("Heart")[i].transform.position.x 
-                                - GameObject.FindGameObjectWithTag("Car").transform.position.x;
+			heartRelPos[i] = GameObject.FindGameObjectsWithTag("Heart")[i].transform.position.x - carPosX;
 
         GameObject[] letters = new GameObject[5];
         letters[0] = GameObject.Find("m");
@@ -40,17 +41,28 @@ public class PlayerMove : MonoBehaviour {
         letters[3] = GameObject.Find("i");
         letters[4] = GameObject.Find("o");
         for (int i = 0; i < letterRelPos.Length; ++i) {
-            letterRelPos[i] = letters[i].transform.position.x
-                                - GameObject.FindGameObjectWithTag("Car").transform.position.x;
+			letterRelPos[i] = letters[i].transform.position.x - carPosX;
 
             lettersFound[i] = false;
         }
+		gameOverRelPos = GameObject.Find ("gameover").transform.position.x - carPosX;
 	}
 
     // Update is called once per frame
     void Update()
     {
-        float axis = Input.GetAxis("Horizontal");
+		if (!isPlaying) {
+			if(Input.GetKeyDown(KeyCode.Return)) {
+				Application.LoadLevel(Application.loadedLevelName);
+				isPlaying = true;
+			}
+			else if(Input.GetKeyDown(KeyCode.Escape))
+				Application.Quit();
+			return;
+		}
+		
+		
+		float axis = Input.GetAxis("Horizontal");
         GameObject car = GameObject.FindGameObjectWithTag("Car");
 
 		if (axis > 0.0) {
@@ -126,6 +138,10 @@ public class PlayerMove : MonoBehaviour {
                     pos.x += Random.Range(100, 150);
                     obstacles[i].transform.position = pos;
                     heartRelPos[life] -= 100;
+					if(life == 0) {
+						isPlaying = false;
+						gameOverRelPos -= 50;
+					}
                 }
                 else if (pos.x < pos_c_x1 - 50)
                 {
@@ -159,6 +175,12 @@ public class PlayerMove : MonoBehaviour {
             }            
 
 
+			// Game Over
+
+			GameObject gameover = GameObject.Find("gameover");
+			pos = gameover.transform.position;
+			pos.x = car.transform.position.x + gameOverRelPos;
+			gameover.transform.position = pos;
 
 
             // ruch kamery
@@ -178,7 +200,7 @@ public class PlayerMove : MonoBehaviour {
 
         if (isJumping)
         {
-            Vector2 pos = car.transform.position;
+			Vector2 pos = car.transform.position;
             pos.y += jumpStep;
             car.transform.position = pos;
             if (pos.y > 5.0)
