@@ -21,6 +21,9 @@ public class PlayerMove : MonoBehaviour {
 	private static float[] letterRelPos;
 	private static float gameOverRelPos;
 
+	private float carJumpRefY = 0.0f;
+	private float camRefY;
+
 	// Use this for initialization
 	void Start () {
 		float carPosX = GameObject.FindGameObjectWithTag("Car").transform.position.x;
@@ -46,11 +49,15 @@ public class PlayerMove : MonoBehaviour {
             lettersFound[i] = false;
         }
 		gameOverRelPos = GameObject.Find ("gameover").transform.position.x - carPosX;
+		camRefY = Camera.main.transform.position.y;
 	}
 
     // Update is called once per frame
     void Update()
     {
+		/* Reakcja na koniec gry
+		 * autor: Tomasz Szołtysek
+		 */
 		if (!isPlaying) {
 			if(Input.GetKeyDown(KeyCode.Return)) {
 				Application.LoadLevel(Application.loadedLevelName);
@@ -154,7 +161,6 @@ public class PlayerMove : MonoBehaviour {
                 hearts[i].transform.position = pos;
             }
             // literki
-
             GameObject[] letters = new GameObject[5];
             letters[0] = GameObject.Find("m");
             letters[1] = GameObject.Find("a");
@@ -170,7 +176,6 @@ public class PlayerMove : MonoBehaviour {
 
 
 			// Game Over
-
 			GameObject gameover = GameObject.Find("gameover");
 			pos = gameover.transform.position;
 			pos.x = car.transform.position.x + gameOverRelPos;
@@ -181,13 +186,18 @@ public class PlayerMove : MonoBehaviour {
             Vector3 camPos = Camera.main.transform.position;
             //camPos.x += step * axis;
             camPos.x = car.transform.position.x + camRelPos;
+			if(car.transform.position.y > 5.0f)
+				camPos.y = camRefY + car.transform.position.y - 5.0f;
+			else
+				camPos.y = camRefY;
             Camera.main.transform.position = camPos;
 		}
 
         // skakanie
-        if (Input.GetKeyDown(KeyCode.UpArrow))
+        if (Input.GetKeyDown(KeyCode.UpArrow) && !(car.rigidbody2D.velocity.y < -0.1f))
         {
             isJumping = true;
+			carJumpRefY = car.transform.position.y;
         }
         if (Input.GetKeyUp(KeyCode.UpArrow))
             isJumping = false;
@@ -197,7 +207,7 @@ public class PlayerMove : MonoBehaviour {
 			Vector2 pos = car.transform.position;
             pos.y += jumpStep;
             car.transform.position = pos;
-            if (pos.y > 5.0)
+            if (pos.y - carJumpRefY > 6.0)
                 isJumping = false;
         }
 	}
