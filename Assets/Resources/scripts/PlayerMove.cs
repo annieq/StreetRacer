@@ -80,12 +80,23 @@ public class PlayerMove : MonoBehaviour {
             isJumping = false;
 
         if (isJumping)
-        {
+		{
+			foreach (GameObject fire in GameObject.FindGameObjectsWithTag("Fire"))
+			{
+				fire.GetComponent<SpriteRenderer>().enabled = true;
+			}
 			Vector2 pos = car.transform.position;
             pos.y += jumpStep;
             car.transform.position = pos;
             if (pos.y - carJumpRefY > 6.0)
                 isJumping = false;
         }
+		if (!isJumping)
+		{
+			foreach (GameObject fire in GameObject.FindGameObjectsWithTag("Fire"))
+			{
+				fire.GetComponent<SpriteRenderer>().enabled = false;
+			}
+		}
 	}
 }
