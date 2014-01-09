@@ -22,9 +22,11 @@ public class WrapBackground : MonoBehaviour {
             return;
 
         Vector2 pos = transform.position;   // pozycja tła
-        if (player.transform.position.x > pos.x + 37.0)
+		float bgroundWidth = GetComponent<SpriteRenderer>().sprite.bounds.size.x * transform.localScale.x;	// szerokość tła
+		if (player.transform.position.x > pos.x + 1.5f * bgroundWidth)
         {
-            pos.x += numberOfBgrounds * 32.116f;
+            //pos.x += numberOfBgrounds * 32.116f;
+			pos.x += numberOfBgrounds * bgroundWidth - 0.05f;
             transform.position = pos;
         }
 	}
