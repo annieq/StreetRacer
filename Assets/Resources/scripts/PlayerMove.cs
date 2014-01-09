@@ -135,18 +135,12 @@ public class PlayerMove : MonoBehaviour {
                     && ((pos.y - size.y <= pos_c_y1 && pos.y + size.y >= pos_c_y1) || (pos.y - size.y <= pos_c_y2 && pos.y + size.y >= pos_c_y2)))
                 {
                     --life;
-                    pos.x += Random.Range(100, 150);
-                    obstacles[i].transform.position = pos;
+					Destroy(obstacles[i]);
                     heartRelPos[life] -= 100;
 					if(life == 0) {
 						isPlaying = false;
 						gameOverRelPos -= 50;
 					}
-                }
-                else if (pos.x < pos_c_x1 - 50)
-                {
-                    pos.x += Random.Range(150, 200);
-                    obstacles[i].transform.position = pos;
                 }
             }  
 
