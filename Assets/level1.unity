@@ -1437,6 +1437,57 @@ Prefab:
   m_RootGameObject: {fileID: 1117329509}
   m_IsPrefabParent: 0
   m_IsExploded: 1
+--- !u!1 &733464579
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 100010, guid: 56b492f344be4014a829ac8a302dbbb1, type: 2}
+  m_PrefabInternal: {fileID: 553189174}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 733464580}
+  - 212: {fileID: 733464581}
+  m_Layer: 0
+  m_Name: firejump
+  m_TagString: Fire
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &733464580
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 400010, guid: 56b492f344be4014a829ac8a302dbbb1, type: 2}
+  m_PrefabInternal: {fileID: 553189174}
+  m_GameObject: {fileID: 733464579}
+  m_LocalRotation: {x: 1, y: 0, z: 0, w: -4.37113883e-08}
+  m_LocalPosition: {x: -1.46443367, y: -2.61178589, z: -.0122070312}
+  m_LocalScale: {x: -.25999999, y: .300000012, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1319673728}
+--- !u!212 &733464581
+SpriteRenderer:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 21200010, guid: 56b492f344be4014a829ac8a302dbbb1,
+    type: 2}
+  m_PrefabInternal: {fileID: 553189174}
+  m_GameObject: {fileID: 733464579}
+  m_Enabled: 0
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_LightmapIndex: 255
+  m_LightmapTilingOffset: {x: 1, y: 1, z: 0, w: 0}
+  m_Materials:
+  - {fileID: 10754, guid: 0000000000000000e000000000000000, type: 0}
+  m_SubsetIndices: 
+  m_StaticBatchRoot: {fileID: 0}
+  m_UseLightProbes: 0
+  m_LightProbeAnchor: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_SortingLayerID: 0
+  m_Sprite: {fileID: 21300000, guid: 6a0292c440f10d441857060adedc2877, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1 &761621539
 GameObject:
   m_ObjectHideFlags: 0
@@ -2433,6 +2484,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 1264156011}
   - 114: {fileID: 1264156012}
+  - 114: {fileID: 1264156013}
   m_Layer: 0
   m_Name: player
   m_TagString: Player
@@ -2469,8 +2521,68 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   step: .5
   jumpStep: .5
-  life: 3
-  lettersFound: 
+--- !u!114 &1264156013
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1264156010}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9027a7bb06318fb419617eb1c11c9f7b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!1 &1305928593
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 100006, guid: 56b492f344be4014a829ac8a302dbbb1, type: 2}
+  m_PrefabInternal: {fileID: 553189174}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 1305928594}
+  - 212: {fileID: 1305928595}
+  m_Layer: 0
+  m_Name: firejump
+  m_TagString: Fire
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1305928594
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 400006, guid: 56b492f344be4014a829ac8a302dbbb1, type: 2}
+  m_PrefabInternal: {fileID: 553189174}
+  m_GameObject: {fileID: 1305928593}
+  m_LocalRotation: {x: 1, y: 0, z: 0, w: -4.37113883e-08}
+  m_LocalPosition: {x: .877632141, y: -2.58687067, z: -.0122070312}
+  m_LocalScale: {x: -.25999999, y: .300000012, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1319673728}
+--- !u!212 &1305928595
+SpriteRenderer:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 21200008, guid: 56b492f344be4014a829ac8a302dbbb1,
+    type: 2}
+  m_PrefabInternal: {fileID: 553189174}
+  m_GameObject: {fileID: 1305928593}
+  m_Enabled: 0
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_LightmapIndex: 255
+  m_LightmapTilingOffset: {x: 1, y: 1, z: 0, w: 0}
+  m_Materials:
+  - {fileID: 10754, guid: 0000000000000000e000000000000000, type: 0}
+  m_SubsetIndices: 
+  m_StaticBatchRoot: {fileID: 0}
+  m_UseLightProbes: 0
+  m_LightProbeAnchor: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_SortingLayerID: 0
+  m_Sprite: {fileID: 21300000, guid: 6a0292c440f10d441857060adedc2877, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1 &1319673727
 GameObject:
   m_ObjectHideFlags: 0
@@ -2503,6 +2615,8 @@ Transform:
   - {fileID: 1330242977}
   - {fileID: 1181114530}
   - {fileID: 761621542}
+  - {fileID: 1305928594}
+  - {fileID: 733464580}
   m_Father: {fileID: 1264156011}
 --- !u!61 &1319673729
 BoxCollider2D:

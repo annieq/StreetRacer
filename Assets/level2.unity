@@ -4370,6 +4370,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 1898578689}
   - 114: {fileID: 1898578690}
+  - 114: {fileID: 1898578691}
   m_Layer: 0
   m_Name: player
   m_TagString: Player
@@ -4406,6 +4407,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   step: .5
   jumpStep: .5
+--- !u!114 &1898578691
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1898578688}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9027a7bb06318fb419617eb1c11c9f7b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1926983868
 Prefab:
   m_ObjectHideFlags: 0
