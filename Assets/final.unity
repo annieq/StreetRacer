@@ -163,6 +163,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 922958216}
   - 212: {fileID: 922958215}
+  - 114: {fileID: 922958217}
   m_Layer: 0
   m_Name: victory
   m_TagString: Untagged
@@ -204,3 +205,14 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
+--- !u!114 &922958217
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 922958214}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 757c9b7102158a842be75bc778343d0b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

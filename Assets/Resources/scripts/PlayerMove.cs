@@ -35,7 +35,7 @@ public class PlayerMove : MonoBehaviour {
 				Application.LoadLevel(Application.loadedLevelName);
 				isPlaying = true;
 			}
-			else if(Input.GetKeyDown(KeyCode.Escape))
+			if(Input.GetKeyDown(KeyCode.Escape))
 				Application.Quit();
 			return;
 		}
