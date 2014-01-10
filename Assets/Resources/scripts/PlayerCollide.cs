@@ -8,7 +8,9 @@ using System.Collections;
 
 public class PlayerCollide : MonoBehaviour {
 	private int life;
-	private bool[] lettersFound;
+    private bool[] lettersFound;
+    private int lettersCount;
+    private int isProtected = 0;
 	
 	private static float[] heartRelPos;
 	private static float[] letterRelPos;
@@ -65,6 +67,14 @@ public class PlayerCollide : MonoBehaviour {
 			pos = letters_block[i].transform.position;
 			if (pos.x <= pos_c_x1 && pos.x >= pos_c_x2 && pos.y <= pos_c_y1 && pos.y >= pos_c_y2)
 			{
+                ++lettersCount;
+                if (lettersCount == 5)
+                {
+                    isProtected = 3;
+                    pos = GameObject.Find("glow").transform.position;
+                    pos.y += 50;
+                    GameObject.Find("glow").transform.position = pos;
+                }
 				lettersFound[i] = true;
 				letterRelPos[i] -= 50;
 				Destroy(letters_block[i]);
@@ -96,13 +106,27 @@ public class PlayerCollide : MonoBehaviour {
 			if (((pos.x - size.x <= pos_c_x1 && pos.x + size.x >= pos_c_x1) || (pos.x - size.x <= pos_c_x2 && pos.x + size.x >= pos_c_x2))
 			    && ((pos.y - size.y <= pos_c_y1 && pos.y + size.y >= pos_c_y1) || (pos.y - size.y <= pos_c_y2 && pos.y + size.y >= pos_c_y2)))
 			{
-				--life;
-				Destroy(obstacles[i]);
-				heartRelPos[life] -= 100;
-				if(life == 0) {
-                    PlayerMove.isPlaying = false;
-					gameOverRelPos -= 50;
-				}
+                if (isProtected == 0)
+                {
+                    --life;
+                    heartRelPos[life] -= 100;
+                    if (life == 0)
+                    {
+                        PlayerMove.isPlaying = false;
+                        gameOverRelPos -= 50;
+                    }
+                }
+                else
+                {
+                    --isProtected;
+                    if (isProtected == 0)
+                    {
+                        pos = GameObject.Find("glow").transform.position;
+                        pos.y -= 50;
+                        GameObject.Find("glow").transform.position = pos;
+                    }
+                }
+                Destroy(obstacles[i]);
 			}
 		}
 		// GUI
