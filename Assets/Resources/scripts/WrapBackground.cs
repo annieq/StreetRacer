@@ -26,7 +26,7 @@ public class WrapBackground : MonoBehaviour {
 		if (player.transform.position.x > pos.x + 1.5f * bgroundWidth)
         {
             //pos.x += numberOfBgrounds * 32.116f;
-			pos.x += numberOfBgrounds * bgroundWidth - 0.05f;
+			pos.x += numberOfBgrounds * bgroundWidth - 0.1f;
             transform.position = pos;
         }
 	}

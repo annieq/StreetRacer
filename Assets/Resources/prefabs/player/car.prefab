@@ -31,7 +31,7 @@ GameObject:
   - 58: {fileID: 5800002}
   m_Layer: 0
   m_Name: wheel
-  m_TagString: Untagged
+  m_TagString: wheel
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -80,7 +80,7 @@ GameObject:
   - 58: {fileID: 5800000}
   m_Layer: 0
   m_Name: wheel
-  m_TagString: Untagged
+  m_TagString: wheel
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

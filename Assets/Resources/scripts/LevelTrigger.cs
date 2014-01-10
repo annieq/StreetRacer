@@ -21,6 +21,10 @@ public class LevelTrigger : MonoBehaviour {
 
 	void OnCollisionEnter2D (Collision2D col)
 	{
-		Application.LoadLevel(nextLevel);
+		Vector2 pos = GameObject.Find("victory").transform.position;
+		pos.y -= 50.0f;
+		GameObject.Find ("victory").transform.position = pos;
+		PlayerMove.levelID = nextLevel;
+		PlayerMove.isPlaying = false;
 	}
 }
