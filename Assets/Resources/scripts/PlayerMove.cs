@@ -12,8 +12,9 @@ public class PlayerMove : MonoBehaviour {
     public float jumpStep = 0.5f;
 
 	private static bool isJumping = false;
+	private static bool isCamMoving = false;
 	public static bool isPlaying = true;
-	public static int levelID = Application.loadedLevel;
+	public static int levelID = 0;
 	
 	private static Vector2 camRelPos;
 
@@ -24,6 +25,7 @@ public class PlayerMove : MonoBehaviour {
 	void Start () {
 		Vector2 carPos = GameObject.FindGameObjectWithTag("Car").transform.position;
 		camRelPos = new Vector2(Camera.main.transform.position.x - carPos.x,Camera.main.transform.position.y - carPos.y);
+		levelID = Application.loadedLevel;
 	}
 
     // Update is called once per frame
@@ -88,7 +90,14 @@ public class PlayerMove : MonoBehaviour {
 		Vector3 camPos = Camera.main.transform.position;
 		//camPos.x += step * axis;
 		camPos.x = Mathf.Lerp(camPos.x,car.transform.position.x + camRelPos.x,0.2f);
-		camPos.y = Mathf.Lerp(camPos.y,car.transform.position.y + camRelPos.y,0.1f);
+		if ((car.transform.position.y - camPos.y > 6.0f) || (car.transform.position.y - camPos.y < -3.0f))
+			isCamMoving = true;
+		
+		if (isCamMoving) {
+			camPos.y = Mathf.Lerp (camPos.y, car.transform.position.y + camRelPos.y, 0.05f);
+			if ((car.transform.position.y - camPos.y < 2.5f) && (car.transform.position.y - camPos.y > -1.5f))
+				isCamMoving = false;
+		}
 		Camera.main.transform.position = camPos;
 
         // skakanie

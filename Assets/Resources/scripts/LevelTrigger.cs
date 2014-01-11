@@ -22,7 +22,7 @@ public class LevelTrigger : MonoBehaviour {
 	void OnCollisionEnter2D (Collision2D col)
 	{
 		Vector2 pos = GameObject.Find("victory").transform.position;
-		pos.y -= 50.0f;
+		pos.y += 50.0f;
 		GameObject.Find ("victory").transform.position = pos;
 		PlayerMove.levelID = nextLevel;
 		PlayerMove.isPlaying = false;

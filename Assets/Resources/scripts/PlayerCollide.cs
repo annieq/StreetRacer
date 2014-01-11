@@ -18,7 +18,6 @@ public class PlayerCollide : MonoBehaviour {
 	
 	private static Vector2[] heartRelPos;
 	private static Vector2[] letterRelPos;
-	private static float gameOverRelPos;
 
 	private float camRefY;
 
@@ -49,7 +48,7 @@ public class PlayerCollide : MonoBehaviour {
 			lettersFound[i] = false;
 		}
 		
-		gameOverRelPos = GameObject.Find ("gameover").transform.position.x - carPosX;
+		//gameOverRelPos = GameObject.Find ("gameover").transform.position.x - carPosX;
 
 		camRefY = Camera.main.transform.position.y;
 	}
@@ -145,8 +144,10 @@ public class PlayerCollide : MonoBehaviour {
 					hearts[life].transform.position = pos;
                     if (life == 0)
                     {
-                        PlayerMove.isPlaying = false;
-                        gameOverRelPos -= 50;
+						PlayerMove.isPlaying = false;
+						pos = GameObject.Find("gameover").transform.position;
+						pos.x -= 50.0f;
+						GameObject.Find("gameover").transform.position = pos;
 					}
                 }
                 else
@@ -187,12 +188,12 @@ public class PlayerCollide : MonoBehaviour {
 			pos.x = car.transform.position.x + letterRelPos[i].x;
 			pos.y = letterRelPos[i].y + Camera.main.transform.position.y - camRefY;
 			letters[i].transform.position = pos;
-        }*/
+        }
 
         // Game Over
         GameObject gameover = GameObject.Find("gameover");
         pos = gameover.transform.position;
         pos.x = car.transform.position.x + gameOverRelPos;
-        gameover.transform.position = pos; 
+        gameover.transform.position = pos; */
 	}
 }
