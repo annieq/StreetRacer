@@ -24,6 +24,7 @@ public class LevelTrigger : MonoBehaviour {
 		Vector2 pos = GameObject.Find("victory").transform.position;
 		pos.y += 50.0f;
 		GameObject.Find ("victory").transform.position = pos;
+		GameObject.Find ("victory").GetComponent<ParticleSystem>().Play();
 		PlayerMove.levelID = nextLevel;
 		PlayerMove.isPlaying = false;
 	}

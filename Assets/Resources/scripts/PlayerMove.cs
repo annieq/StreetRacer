@@ -90,12 +90,12 @@ public class PlayerMove : MonoBehaviour {
 		Vector3 camPos = Camera.main.transform.position;
 		//camPos.x += step * axis;
 		camPos.x = Mathf.Lerp(camPos.x,car.transform.position.x + camRelPos.x,0.2f);
-		if ((car.transform.position.y - camPos.y > 6.0f) || (car.transform.position.y - camPos.y < -3.0f))
+		if ((car.transform.position.y - camPos.y > 8.0f) || (car.transform.position.y - camPos.y < -4.0f))
 			isCamMoving = true;
 		
 		if (isCamMoving) {
-			camPos.y = Mathf.Lerp (camPos.y, car.transform.position.y + camRelPos.y, 0.05f);
-			if ((car.transform.position.y - camPos.y < 2.5f) && (car.transform.position.y - camPos.y > -1.5f))
+			camPos.y = Mathf.Lerp (camPos.y, car.transform.position.y, 0.05f);
+			if ((car.transform.position.y - camPos.y < 1.0f) && (car.transform.position.y - camPos.y > -1.0f))
 				isCamMoving = false;
 		}
 		Camera.main.transform.position = camPos;
@@ -113,7 +113,8 @@ public class PlayerMove : MonoBehaviour {
 		{
 			foreach (GameObject fire in GameObject.FindGameObjectsWithTag("Fire"))
 			{
-				fire.GetComponent<SpriteRenderer>().enabled = true;
+				//fire.GetComponent<SpriteRenderer>().enabled = true;
+				fire.GetComponent<ParticleSystem>().Play();
 			}
 			Vector2 pos = car.transform.position;
             pos.y += jumpStep;
@@ -125,7 +126,8 @@ public class PlayerMove : MonoBehaviour {
 		{
 			foreach (GameObject fire in GameObject.FindGameObjectsWithTag("Fire"))
 			{
-				fire.GetComponent<SpriteRenderer>().enabled = false;
+				//fire.GetComponent<SpriteRenderer>().enabled = false;
+				fire.GetComponent<ParticleSystem>().Stop();
 			}
 		}
 	}
