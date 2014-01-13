@@ -1,5 +1,5 @@
 ﻿/// 
-/// Autor: Anna Kuśnierz
+/// Autor: Tomasz Szołtysek
 /// Data: 9.01.2013
 ///
 

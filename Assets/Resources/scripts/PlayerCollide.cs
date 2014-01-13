@@ -15,11 +15,12 @@ public class PlayerCollide : MonoBehaviour {
     private bool[] lettersFound;
     private int lettersCount;
     private int isProtected = 0;
+	private bool fadeGlow = false;
 	
 	private static Vector2[] heartRelPos;
 	private static Vector2[] letterRelPos;
 
-	private float camRefY;
+	//private float camRefY;
 
 	// Use this for initialization
 	void Start () {
@@ -50,13 +51,14 @@ public class PlayerCollide : MonoBehaviour {
 		
 		//gameOverRelPos = GameObject.Find ("gameover").transform.position.x - carPosX;
 
-		camRefY = Camera.main.transform.position.y;
+		//camRefY = Camera.main.transform.position.y;
 	}
 	
 	// Update is called once per frame
 	void Update () {
 		
 		GameObject car = GameObject.FindGameObjectWithTag("Car");
+		GameObject glow = GameObject.Find("glow");
 		// zmienne potrzebne przy kolizjach
 		float pos_c_x1 = car.transform.position.x + car.GetComponent<SpriteRenderer>().sprite.bounds.size.x / 2.0f; 	// przednia krawędź auta
 		float pos_c_x2 = car.transform.position.x - car.GetComponent<SpriteRenderer>().sprite.bounds.size.x / 2.0f; 	// tylnia krawędź auta
@@ -91,9 +93,10 @@ public class PlayerCollide : MonoBehaviour {
                 if (lettersCount == 5)
                 {
                     isProtected = 3;
-                    pos = GameObject.Find("glow").transform.position;
+                    pos = glow.transform.position;
                     pos.y += 50;
-                    GameObject.Find("glow").transform.position = pos;
+                    glow.transform.position = pos;
+					glow.transform.localScale = new Vector3(0.0f, 0.0f, 1.0f);
                 }
 				lettersFound[i] = true;
 				pos = letters[i].transform.position;
@@ -103,6 +106,15 @@ public class PlayerCollide : MonoBehaviour {
 				letters_block[i].GetComponent<ParticleSystem>().Play();
 			}
 		}
+		// pojawianie się glow
+		if ( (glow.transform.localScale.x < 1.0f || glow.transform.localScale.y < 1.0f) && !fadeGlow)
+		{
+			Vector2 scale = glow.transform.localScale;
+			scale.x += 0.02f;
+			scale.y += 0.02f;
+			glow.transform.localScale = scale;
+		}
+
 		// zbieranie serduszek
 		GameObject[] hearts = GameObject.FindGameObjectsWithTag("Heart");
 		GameObject[] hearts_block = GameObject.FindGameObjectsWithTag("Heart-b");
@@ -155,14 +167,33 @@ public class PlayerCollide : MonoBehaviour {
                     --isProtected;
                     if (isProtected == 0)
                     {
-                        pos = GameObject.Find("glow").transform.position;
-                        pos.y -= 50;
-                        GameObject.Find("glow").transform.position = pos;
+						fadeGlow = true;
+                        //pos = GameObject.Find("glow").transform.position;
+                        //pos.y -= 50;
+                        //GameObject.Find("glow").transform.position = pos;
                     }
 				}
 				Camera.main.audio.PlayOneShot(oops);
 				obstacles[i].GetComponent<SpriteRenderer>().enabled = false;
 				obstacles[i].GetComponent<ParticleSystem>().Play();
+			}
+		}
+		// znikanie glow
+		if (fadeGlow)
+		{
+			if (glow.transform.localScale.x > 0.0f || glow.transform.localScale.y > 0.0f)
+			{
+				Vector2 scale = glow.transform.localScale;
+				scale.x -= 0.02f;
+				scale.y -= 0.02f;
+				glow.transform.localScale = scale;
+			}
+			if (glow.transform.localScale.x <= 0.0f)
+			{
+				fadeGlow = false;
+				pos = glow.transform.position;
+				pos.y -= 50;
+				glow.transform.position = pos;
 			}
 		}
 		// GUI
