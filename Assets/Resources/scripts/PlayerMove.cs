@@ -131,7 +131,4 @@ public class PlayerMove : MonoBehaviour {
 			}
 		}
 	}
-	void LateUpdate()
-	{
-	}
 }

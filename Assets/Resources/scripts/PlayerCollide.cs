@@ -16,6 +16,10 @@ public class PlayerCollide : MonoBehaviour {
     private int lettersCount;
     private int isProtected = 0;
 	private bool fadeGlow = false;
+
+	private Vector2 curLetterPos;
+	private Vector2 destLetterPos;
+	private int curLetter = 0;
 	
 	private static Vector2[] heartRelPos;
 	private static Vector2[] letterRelPos;
@@ -24,7 +28,7 @@ public class PlayerCollide : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		float carPosX = GameObject.FindGameObjectWithTag("Car").transform.position.x;
+		//float carPosX = GameObject.FindGameObjectWithTag("Car").transform.position.x;
 		GameObject[] hearts = GameObject.FindGameObjectsWithTag ("Heart");
 		heartRelPos = new Vector2[hearts.Length];
 		letterRelPos = new Vector2[5];
@@ -48,6 +52,7 @@ public class PlayerCollide : MonoBehaviour {
 			
 			lettersFound[i] = false;
 		}
+		destLetterPos = curLetterPos = GameObject.Find("m").transform.position;
 		
 		//gameOverRelPos = GameObject.Find ("gameover").transform.position.x - carPosX;
 
@@ -83,7 +88,7 @@ public class PlayerCollide : MonoBehaviour {
 		letters[4] = GameObject.Find("o");
 		for (int i = 0; i < letters_block.Length; ++i)
 		{
-			if (lettersFound[i]) continue;
+			if (lettersFound[i]) continue;	// ta literka jest juz zebrana
 			pos = letters_block[i].transform.position;
 			if (letters_block[i].GetComponent<SpriteRenderer>().enabled 
 			    && pos.x <= pos_c_x1 && pos.x >= pos_c_x2 && pos.y <= pos_c_y1 && pos.y >= pos_c_y2)
@@ -99,13 +104,28 @@ public class PlayerCollide : MonoBehaviour {
 					glow.transform.localScale = new Vector3(0.0f, 0.0f, 1.0f);
                 }
 				lettersFound[i] = true;
-				pos = letters[i].transform.position;
-				pos.x -= 50.0f;
-				letters[i].transform.position = pos;
+				// przesuniecie literki na swoje miejsce
+				curLetter = i;
+				curLetterPos = letters_block[i].transform.position;
+				destLetterPos = letters[i].transform.position;
+				destLetterPos.x -= 50.0f;
+				letters[i].transform.position = curLetterPos;
+
 				letters_block[i].GetComponent<SpriteRenderer>().enabled = false;
 				letters_block[i].GetComponent<ParticleSystem>().Play();
 			}
 		}
+		// przesuniecie literki na swoje miejsce
+		Vector2 diff = curLetterPos - destLetterPos;
+		if (diff.x > 0.001f || diff.x < -0.001f
+		    && diff.y > 0.001f || diff.y < -0.001f)
+		{
+			Vector2 step = (destLetterPos - curLetterPos)/5.0f;
+			curLetterPos += step;
+			letters[curLetter].transform.position = curLetterPos;
+		}
+		else
+			letters[curLetter].transform.position = destLetterPos;
 		// pojawianie się glow
 		if ( (glow.transform.localScale.x < 1.0f || glow.transform.localScale.y < 1.0f) && !fadeGlow)
 		{
