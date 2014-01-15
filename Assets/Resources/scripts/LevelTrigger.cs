@@ -25,6 +25,7 @@ public class LevelTrigger : MonoBehaviour {
 		pos.y += 50.0f;
 		GameObject.Find ("victory").transform.position = pos;
 		GameObject.Find ("victory").GetComponent<ParticleSystem>().Play();
+		GameObject.Find ("victory").GetComponent<AudioSource>().Play();
 		PlayerMove.levelID = nextLevel;
 		PlayerMove.isPlaying = false;
 	}
