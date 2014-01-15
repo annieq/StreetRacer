@@ -16,6 +16,7 @@ public class PlayerCollide : MonoBehaviour {
     private int lettersCount;
     private int isProtected = 0;
 	private bool fadeGlow = false;
+	private bool fadeHeart = false;
 
 	private Vector2 curLetterPos;
 	private Vector2 destLetterPos;
@@ -182,7 +183,7 @@ public class PlayerCollide : MonoBehaviour {
         }
         if (curHeart >= 0)
         {
-            // przesuniecie literki na swoje miejsce
+            // przesuniecie serca na swoje miejsce
             Vector2 diff = destHeartPos - curHeartPos;
             if (diff.x < 0.0f && diff.y > 0.0f)
             {
@@ -211,9 +212,10 @@ public class PlayerCollide : MonoBehaviour {
 				if (isProtected == 0)
 				{
                     --life;
-					pos = hearts[life].transform.position;
-					pos.x -= 100.0f;
-					hearts[life].transform.position = pos;
+					fadeHeart = true;
+					//pos = hearts[life].transform.position;
+					//pos.x -= 100.0f;
+					//hearts[life].transform.position = pos;
                     if (life == 0)
                     {
 						PlayerMove.isPlaying = false;
@@ -254,6 +256,28 @@ public class PlayerCollide : MonoBehaviour {
 				pos = glow.transform.position;
 				pos.y -= 50;
 				glow.transform.position = pos;
+			}
+		}
+		// znikanie serduszka
+		if (fadeHeart)
+		{
+			if (hearts[life].transform.localScale.x > 0.0f || hearts[life].transform.localScale.y > 0.0f)
+			{
+				Vector2 scale = hearts[life].transform.localScale;
+				scale.x -= 0.02f;
+				scale.y -= 0.02f;
+				hearts[life].transform.localScale = scale;
+			}
+			if (hearts[life].transform.localScale.x <= 0.0f)
+			{
+				fadeHeart = false;
+				pos = hearts[life].transform.position;
+				pos.x -= 100;
+				hearts[life].transform.position = pos;
+				Vector2 scale = hearts[life].transform.localScale;
+				scale.x = 0.3f;
+				scale.y = 0.3f;
+				hearts[life].transform.localScale = scale;
 			}
 		}
 		// GUI
