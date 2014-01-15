@@ -1,0 +1,29 @@
+Initialize engine version: 4.3.0f4 (e01000627d60)
+GfxDevice: creating device client; threaded=1
+Direct3D:
+    Version:  Direct3D 9.0c [nvd3dum.dll 9.18.13.3221]
+    Renderer: NVIDIA GeForce GT 420M              
+    Vendor:   NVIDIA
+    VRAM:     1998 MB (via DXGI)
+    Caps:     Shader=30 DepthRT=1 NativeDepth=1 NativeShadow=1 DF16=0 INTZ=1 RAWZ=0 NULL=1 RESZ=0 SlowINTZ=0
+Begin MonoManager ReloadAssembly
+Platform assembly: C:\Users\Tomek\Documents\GitHub\StreetRacer\StreetRacer_Data\Managed\UnityEngine.dll (this message is harmless)
+Loading C:\Users\Tomek\Documents\GitHub\StreetRacer\StreetRacer_Data\Managed\UnityEngine.dll into Unity Child Domain
+Platform assembly: C:\Users\Tomek\Documents\GitHub\StreetRacer\StreetRacer_Data\Managed\Assembly-CSharp.dll (this message is harmless)
+Loading C:\Users\Tomek\Documents\GitHub\StreetRacer\StreetRacer_Data\Managed\Assembly-CSharp.dll into Unity Child Domain
+- Completed reload, in  0.055 seconds
+desktop: 1920x1080 60Hz; virtual: 1920x1080 at 0,0
+<RI> Initializing input.
+<RI> Input initialized.
+UnloadTime: 0.969114 ms
+Unloading 3 Unused Serialized files (Serialized files now loaded: 0 / Dirty serialized files: 0)
+
+Unloading 6 unused Assets to reduce memory usage. Loaded Objects now: 399.
+Total: 0.785987 ms (FindLiveObjects: 0.021878 ms CreateObjectMapping: 0.012154 ms MarkObjects: 0.155576 ms  DeleteObjects: 0.015395 ms)
+
+UnloadTime: 0.974786 ms
+Unloading 1 Unused Serialized files (Serialized files now loaded: 0 / Dirty serialized files: 0)
+
+Unloading 54 unused Assets to reduce memory usage. Loaded Objects now: 78.
+Total: 4.541307 ms (FindLiveObjects: 0.006077 ms CreateObjectMapping: 0.011749 ms MarkObjects: 0.134509 ms  DeleteObjects: 3.865925 ms)
+

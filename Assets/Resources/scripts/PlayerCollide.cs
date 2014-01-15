@@ -19,7 +19,12 @@ public class PlayerCollide : MonoBehaviour {
 
 	private Vector2 curLetterPos;
 	private Vector2 destLetterPos;
-	private int curLetter = 0;
+    private Vector2 step;
+    private int curLetter;
+    private Vector2 curHeartPos;
+    private Vector2 destHeartPos;
+    private Vector2 hstep;
+    private int curHeart;
 	
 	private static Vector2[] heartRelPos;
 	private static Vector2[] letterRelPos;
@@ -56,7 +61,9 @@ public class PlayerCollide : MonoBehaviour {
 		
 		//gameOverRelPos = GameObject.Find ("gameover").transform.position.x - carPosX;
 
-		//camRefY = Camera.main.transform.position.y;
+        //camRefY = Camera.main.transform.position.y;
+        curLetter = -1;
+        curHeart = -1;
 	}
 	
 	// Update is called once per frame
@@ -106,26 +113,34 @@ public class PlayerCollide : MonoBehaviour {
 				lettersFound[i] = true;
 				// przesuniecie literki na swoje miejsce
 				curLetter = i;
-				curLetterPos = letters_block[i].transform.position;
-				destLetterPos = letters[i].transform.position;
+                curLetterPos = letters_block[i].transform.position;
+                curLetterPos.x -= Camera.main.transform.position.x;
+                curLetterPos.y -= Camera.main.transform.position.y;
+				destLetterPos = letters[i].transform.localPosition;
 				destLetterPos.x -= 50.0f;
-				letters[i].transform.position = curLetterPos;
+                letters[i].transform.localPosition = curLetterPos;
+                Vector2 diff = destLetterPos - curLetterPos;
+                step = diff / 25;
 
 				letters_block[i].GetComponent<SpriteRenderer>().enabled = false;
 				letters_block[i].GetComponent<ParticleSystem>().Play();
 			}
 		}
-		// przesuniecie literki na swoje miejsce
-		Vector2 diff = curLetterPos - destLetterPos;
-		if (diff.x > 0.001f || diff.x < -0.001f
-		    && diff.y > 0.001f || diff.y < -0.001f)
-		{
-			Vector2 step = (destLetterPos - curLetterPos)/5.0f;
-			curLetterPos += step;
-			letters[curLetter].transform.position = curLetterPos;
-		}
-		else
-			letters[curLetter].transform.position = destLetterPos;
+        if (curLetter >= 0)
+        {
+            // przesuniecie literki na swoje miejsce
+            Vector2 diff = destLetterPos - curLetterPos;
+            if (diff.x > 0.0f && diff.y > 0.0f)
+            {
+                curLetterPos += step;
+                letters[curLetter].transform.position = curLetterPos + new Vector2(Camera.main.transform.position.x,Camera.main.transform.position.y);
+            }
+            else
+            {
+                letters[curLetter].transform.position = destLetterPos + new Vector2(Camera.main.transform.position.x, Camera.main.transform.position.y);
+                curLetter = -1;
+            }
+        }
 		// pojawianie się glow
 		if ( (glow.transform.localScale.x < 1.0f || glow.transform.localScale.y < 1.0f) && !fadeGlow)
 		{
@@ -145,16 +160,41 @@ public class PlayerCollide : MonoBehaviour {
 			    && pos.x <= pos_c_x1 && pos.x >= pos_c_x2 && pos.y <= pos_c_y1 && pos.y >= pos_c_y2)
 			{
 				if (life < 3) {
+                    curHeart = life;
+                    curHeartPos = hearts_block[i].transform.position;
+                    curHeartPos.x -= Camera.main.transform.position.x;
+                    curHeartPos.y -= Camera.main.transform.position.y;
+                    destHeartPos = hearts[life].transform.localPosition;
+                    destHeartPos.x += 100.0f;
+                    hearts[life].transform.localPosition = curHeartPos;
+                    Vector2 diff = destHeartPos - curHeartPos;
+                    hstep = diff / 25;
+
 					++life;
-					pos = hearts[life-1].transform.position;
-					pos.x += 100.0f;
-					hearts[life-1].transform.position = pos;
+					//pos = hearts[life-1].transform.position;
+					//pos.x += 100.0f;
+					//hearts[life-1].transform.position = pos;
 				}
 				Camera.main.audio.PlayOneShot(heart);
 				hearts_block[i].GetComponent<SpriteRenderer>().enabled = false;
 				hearts_block[i].GetComponent<ParticleSystem>().Play ();
 			}
-		}
+        }
+        if (curHeart >= 0)
+        {
+            // przesuniecie literki na swoje miejsce
+            Vector2 diff = destHeartPos - curHeartPos;
+            if (diff.x < 0.0f && diff.y > 0.0f)
+            {
+                curHeartPos += hstep;
+                hearts[curHeart].transform.position = curHeartPos + new Vector2(Camera.main.transform.position.x, Camera.main.transform.position.y);
+            }
+            else
+            {
+                hearts[curHeart].transform.position = destHeartPos + new Vector2(Camera.main.transform.position.x, Camera.main.transform.position.y);
+                curHeart = -1;
+            }
+        }
 		
 		// sprawdzenie kolizji z przeszkodami
 		GameObject[] obstacles = GameObject.FindGameObjectsWithTag("Obstacle");
