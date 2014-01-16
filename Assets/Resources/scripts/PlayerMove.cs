@@ -4,7 +4,6 @@
 /// 
 
 using UnityEngine;
-using System.Collections;
 
 public class PlayerMove : MonoBehaviour {
 
@@ -19,16 +18,13 @@ public class PlayerMove : MonoBehaviour {
 	private static Vector2 camRelPos;
 
 	private float carJumpRefY = 0.0f;
-	private float camRefY;
 
-	// Use this for initialization
 	void Start () {
 		Vector2 carPos = GameObject.FindGameObjectWithTag("Car").transform.position;
 		camRelPos = new Vector2(Camera.main.transform.position.x - carPos.x,Camera.main.transform.position.y - carPos.y);
 		levelID = Application.loadedLevel;
 	}
 
-    // Update is called once per frame
     void Update()
 	{
 		if(Input.GetKeyDown(KeyCode.Escape))
@@ -77,18 +73,10 @@ public class PlayerMove : MonoBehaviour {
 					);
 				w.transform.rotation = wRot;
 			}
-            // obrót auta
-            /*Vector2 scale = car.transform.localScale;
-            if (axis < 0.0)
-                scale.x = -1.0f;
-            else if (axis > 0.0)
-                scale.x = 1.0f;
-            car.transform.localScale = scale;*/
-
 		}
+
 		// ruch kamery
 		Vector3 camPos = Camera.main.transform.position;
-		//camPos.x += step * axis;
 		camPos.x = Mathf.Lerp(camPos.x,car.transform.position.x + camRelPos.x,0.2f);
 		if ((car.transform.position.y - camPos.y > 8.0f) || (car.transform.position.y - camPos.y < -4.0f))
 			isCamMoving = true;
@@ -113,7 +101,6 @@ public class PlayerMove : MonoBehaviour {
 		{
 			foreach (GameObject fire in GameObject.FindGameObjectsWithTag("Fire"))
 			{
-				//fire.GetComponent<SpriteRenderer>().enabled = true;
 				fire.GetComponent<ParticleSystem>().Play();
 			}
 			Vector2 pos = car.transform.position;
@@ -126,7 +113,6 @@ public class PlayerMove : MonoBehaviour {
 		{
 			foreach (GameObject fire in GameObject.FindGameObjectsWithTag("Fire"))
 			{
-				//fire.GetComponent<SpriteRenderer>().enabled = false;
 				fire.GetComponent<ParticleSystem>().Stop();
 			}
 		}
